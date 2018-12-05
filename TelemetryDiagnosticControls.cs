@@ -29,7 +29,7 @@ namespace TelemetrySystemKata
                 throw new Exception("Unable to connect.");
             }
 
-            _telemetryClient.Send(TelemetryClient.DiagnosticMessage);
+            _telemetryClient.Send(Channel.DiagnosticMessage);
             return _telemetryClient.Receive();
         }
     }

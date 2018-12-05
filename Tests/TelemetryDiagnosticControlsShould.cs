@@ -20,7 +20,7 @@ namespace TelemetrySystemKata.Tests
 
             var diagnosticsResult = telemetryDiagnosticControls.CheckTransmission();
 
-            Check.That(diagnosticsResult).IsEqualTo(TelemetryClient.SimulatedDiagnosticMessageResult);
+            Check.That(diagnosticsResult).IsEqualTo(Channel.SimulatedDiagnosticMessageResult);
         }
 
 
@@ -29,13 +29,13 @@ namespace TelemetrySystemKata.Tests
         {
             var connectionSimulator = Simulate_client_try_connect_twice_and_finished_by_connected();
 
-            var telemetryClient = new TelemetryClient(connectionSimulator);
+            var telemetryClient = new TelemetryClient(new Connector(connectionSimulator), new Channel(connectionSimulator));
 
             var telemetryDiagnosticControls = new TelemetryDiagnosticControls(telemetryClient);
 
             var diagnosticsResult = telemetryDiagnosticControls.CheckTransmission();
 
-            Check.That(diagnosticsResult).IsEqualTo(TelemetryClient.SimulatedDiagnosticMessageResult);
+            Check.That(diagnosticsResult).IsEqualTo(Channel.SimulatedDiagnosticMessageResult);
         }
 
         private static IConnectionSimulator Simulate_client_try_connect_twice_and_finished_by_connected()
@@ -66,7 +66,7 @@ namespace TelemetrySystemKata.Tests
         {
             var connectionSimulator = SimulateClientRetryConnect_three_times_fail();
 
-            var telemetryClient = new TelemetryClient(connectionSimulator);
+            var telemetryClient = new TelemetryClient(new Connector(connectionSimulator), new Channel(connectionSimulator));
             var telemetryDiagnosticControls = new TelemetryDiagnosticControls(telemetryClient);
 
             Check.ThatCode(

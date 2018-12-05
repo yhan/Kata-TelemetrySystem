@@ -8,7 +8,7 @@ namespace TelemetrySystemKata.Tests
         {
             var simulator = Substitute.For<IConnectionSimulator>();
             simulator.Next(1, 10).Returns(nextReturnThis);
-            var client = new TelemetryClient(simulator);
+            var client = new TelemetryClient(new Connector(simulator), new Channel(simulator));
 
             return client;
         }
